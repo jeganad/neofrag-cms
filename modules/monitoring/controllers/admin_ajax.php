@@ -18,9 +18,17 @@ class Admin_Ajax extends Controller_Module
 		{
 			$this->config('nf_monitoring_last_check', time());
 
-			if (version_compare(PHP_VERSION, 7.2, '<'))
+			if (version_compare(PHP_VERSION, 7.1, '<='))
 			{
-				$this->_notify('Il est recommandé d\'utiliser PHP 7', 'info');
+				$this->_notify('Cette version de PHP est obsolète, veuillez mettre à jour votre serveur', 'error');
+			}
+			else if (version_compare(PHP_VERSION, 7.2, '<='))
+			{
+				$this->_notify('Cette version de PHP est sera bientôt obsolète, il est recommandé de mettre à jour votre serveur', 'warning');
+			}
+			else if (version_compare(PHP_VERSION, 7.4, '<'))
+			{
+				$this->_notify('Il est recommandé d\'utiliser PHP 7.4', 'info');
 			}
 
 			if ($this->db->get_info('driver') != 'mysqli')
