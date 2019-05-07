@@ -174,7 +174,7 @@ class Admin extends Controller_Module
 								->append(
 									$this	->form2('profile_socials', $user->profile())
 											->success(function($profile){
-												$profile->update();
+												$profile->commit();
 												notify($this->lang('Profil modifié'));
 												refresh();
 											})

@@ -161,7 +161,7 @@ class Index extends Controller_Module
 									->size('col-7')
 									->append($this	->form2('profile', $this->user->profile())
 													->success(function($profile){
-														$profile->update();
+														$profile->commit();
 														notify($this->lang('Profil modifié'));
 														refresh();
 													})
@@ -169,7 +169,7 @@ class Index extends Controller_Module
 									)
 									->append($this	->form2('profile_socials', $this->user->profile())
 													->success(function($profile){
-														$profile->update();
+														$profile->commit();
 														notify($this->lang('Liens modifiés'));
 														refresh();
 													})
@@ -185,7 +185,7 @@ class Index extends Controller_Module
 																->square(250)
 													)
 													->success(function($data){
-														$this->user->profile()->set('avatar', $data['avatar'])->update();
+														$this->user->profile()->set('avatar', $data['avatar'])->commit();
 														notify($this->lang('Avatar modifié'));
 														refresh();
 													})
@@ -198,7 +198,7 @@ class Index extends Controller_Module
 																->rectangle(1920, 400)
 													)
 													->success(function($data){
-														$this->user->profile()->set('cover', $data['cover'])->update();
+														$this->user->profile()->set('cover', $data['cover'])->commit();
 														notify($this->lang('Photo de couverture modifiée'));
 														refresh();
 													})
