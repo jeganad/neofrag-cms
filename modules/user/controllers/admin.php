@@ -148,7 +148,13 @@ class Admin extends Controller_Module
 								->append(
 									$this	->form2('username email new_password', $user)
 											->success(function($user){
+												if ($user->password_new)
+												{
+													$user->set_password($user->password_new);
+												}
+
 												$user->update();
+
 												notify($this->lang('Membre modifié'));
 												redirect('admin/user/edit/'.$user->url());
 											})
