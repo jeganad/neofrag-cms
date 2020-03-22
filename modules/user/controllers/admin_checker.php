@@ -12,12 +12,12 @@ class Admin_Checker extends Module_Checker
 {
 	public function index($page = '')
 	{
-		return [NeoFrag()->collection('user')->paginate($page)];
+		return [NeoFrag()->collection('user')->where('deleted', FALSE)->paginate($page)];
 	}
 
 	public function edit($id, $username)
 	{
-		if ($user = NeoFrag()->model2('user', $id)->check($username))
+		if (($user = NeoFrag()->model2('user', $id)->check($username)) && !$user->deleted)
 		{
 			return [$user];
 		}
