@@ -163,38 +163,42 @@ class Admin extends Controller_Module
 								)
 								->append(
 									$this	->form2('profile', $user->profile())
-											->success(function($profile){
-												$profile->commit();
-												notify($this->lang('Profil modifié'));
-												refresh();
-											})
 											->panel()
 											->title('Profil')
 								)
 								->append(
 									$this	->form2('profile_socials', $user->profile())
-											->success(function($profile){
-												$profile->commit();
-												notify($this->lang('Profil modifié'));
-												refresh();
-											})
 											->panel()
 											->title('Liens', 'fa-globe')
 								)
 					)
-					->append($this->col(
-						$this	->panel()
-								->heading($this->lang('Groupes'), 'fa-users')
-								->body($this->view('admin/groups', [
-									'user_id' => $user->id,
-									'form_id' => $form_groups->token()
-								]))
-								->size('col-12 col-lg-5'),
-						$this	->table2('session', $user->sessions())
-								->panel()
-								->title($this->lang('Sessions actives'), 'fa-globe')
+					->append(
+						$this	->col()
 								->size('col-12 col-lg-5')
-					));
+								->append($this	->panel()
+												->heading($this->lang('Groupes'), 'fa-users')
+												->body($this->view('admin/groups', [
+													'user_id' => $user->id,
+													'form_id' => $form_groups->token()
+												]))
+								)
+								->append(
+									$this	->form2('avatar', $user->profile())
+											->panel()
+											->title('Avatar', 'fa-user-circle')
+								)
+								->append(
+									$this	->form2('cover', $user->profile())
+											->panel()
+											->title('Photo de couverture', 'fa-picture-o')
+								)
+								->append(
+									$this	->table2('session', $user->sessions())
+											->panel()
+											->title($this->lang('Sessions actives'), 'fa-globe')
+											->size('col-12 col-lg-5')
+								)
+					);
 	}
 
 	public function _groups_add()
