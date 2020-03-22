@@ -36,7 +36,7 @@ class Ajax extends Controller_Module
 										->color('link')
 										->modal_ajax('ajax/user/lost-password')
 						)
-						->button($this	->button()
+						->button_if($this->config->nf_registration_status, $this->button()
 										->title('Créer un compte')
 										->color('secondary')
 										->modal_ajax('ajax/user/register')
@@ -57,7 +57,7 @@ class Ajax extends Controller_Module
 	{
 		return $this->form2('login')
 					->modal('Se connecter', 'fa-sign-in')
-					->button_prepend($this	->button()
+					->button_prepend_if($this->config->nf_registration_status, $this->button()
 											->title('Créer un compte')
 											->color('secondary')
 											->modal_ajax('ajax/user/register')
