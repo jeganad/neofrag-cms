@@ -15,6 +15,7 @@ class Image extends File
 	];
 	protected $_width;
 	protected $_height;
+	protected $_default;
 
 	public function __invoke($name, $upload_dir = '')
 	{
@@ -37,10 +38,10 @@ class Image extends File
 		$this->_thumbnail = function(){
 			if ($this->_value)
 			{
-				return '<div class="text-center">
-							<img class="img-thumbnail" src="'.$this->_value->path().'" alt="" />
-							<p class="m-4">'.$this->lang('Dimensions %dpx par %dpx <i>(%s max.)</i>', $this->_width, $this->_height, human_size(file_upload_max_size())).'</p>
-						</div>';
+				return $this->html()
+							->attr('class', 'text-center')
+							->append_if($path = $this->_value->path() ?: $this->_default, '<img class="img-thumbnail" src="'.$path.'" alt="" />')
+							->append_if($this->_width || $this->_height,                  '<p class="m-4">'.$this->lang('Dimensions %dpx par %dpx <i>(%s max.)</i>', $this->_width, $this->_height, human_size(file_upload_max_size())).'</p>');
 			}
 		};
 
@@ -57,6 +58,12 @@ class Image extends File
 	{
 		$this->_width  = $width;
 		$this->_height = $height;
+		return $this;
+	}
+
+	public function default($default)
+	{
+		$this->_default = $default;
 		return $this;
 	}
 }
