@@ -168,10 +168,7 @@ class Form2 extends Library
 		{
 			if ($path = $this->__caller->__path('forms', $form.'.php', $paths))
 			{
-				if (is_array($rules = include $path))
-				{
-					$this->_rules = $rules;
-				}
+				include $path;
 			}
 			else
 			{
